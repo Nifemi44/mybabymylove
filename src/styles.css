@@ -5,17 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Design system for Sanaya — "Blushing Letter" direction.
+ * Romance palette: blush / rose / wine / ink / cream.
+ * Typography: Fraunces (display), Cormorant Garamond (body), DM Serif Display (script).
  */
 
 @theme inline {
@@ -59,6 +51,19 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+}
+
+/* Romance palette + fonts (direct values, no var indirection) */
+@theme {
+  --color-blush: #fbedea;
+  --color-rose: #e7a0a8;
+  --color-wine: #7a2e43;
+  --color-ink: #3a2229;
+  --color-cream: #fff9f4;
+  --color-gold: #c5a059;
+  --font-heading: "Fraunces", serif;
+  --font-script: "DM Serif Display", serif;
+  --font-body: "Cormorant Garamond", serif;
 }
 
 :root {
@@ -141,4 +146,168 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
   }
+}
+
+/* ---------- Love-letter animations ---------- */
+
+@keyframes love-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes love-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes love-float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-16px);
+  }
+}
+
+@keyframes love-float-y2 {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(14px);
+  }
+}
+
+@keyframes love-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+@keyframes love-heart-pop {
+  0% {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.12);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes love-name-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 24px rgba(231, 160, 168, 0.35), 0 0 60px rgba(197, 160, 89, 0.2);
+  }
+  50% {
+    text-shadow: 0 0 40px rgba(231, 160, 168, 0.6), 0 0 90px rgba(197, 160, 89, 0.35);
+  }
+}
+
+@keyframes love-fall {
+  0% {
+    transform: translate(0, -10vh) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.8;
+  }
+  90% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(40px, 110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Hero entrance utilities */
+@utility a-name {
+  opacity: 0;
+  animation:
+    love-fade-up 1.4s cubic-bezier(0.2, 0.7, 0.2, 1) 0.3s forwards,
+    love-name-glow 4s ease-in-out 1.8s infinite;
+}
+@utility a-fade-1 {
+  opacity: 0;
+  animation: love-fade-in 1.2s ease 0.1s forwards;
+}
+@utility a-fade-2 {
+  opacity: 0;
+  animation: love-fade-in 1.2s ease 0.5s forwards;
+}
+@utility a-fade-3 {
+  opacity: 0;
+  animation: love-fade-in 1.2s ease 1s forwards;
+}
+@utility a-fade-4 {
+  opacity: 0;
+  animation: love-fade-in 1.2s ease 1.4s forwards;
+}
+@utility a-floaty {
+  animation: love-float-y 7s ease-in-out infinite;
+}
+@utility a-floaty2 {
+  animation: love-float-y2 9s ease-in-out infinite;
+}
+@utility a-pulse {
+  animation: love-pulse 5s ease-in-out infinite;
+}
+@utility a-heart {
+  opacity: 0;
+  transform-origin: center;
+  animation: love-heart-pop 1.6s cubic-bezier(0.2, 0.8, 0.2, 1) 1.2s forwards;
+}
+@utility a-name-glow {
+  animation: love-name-glow 4s ease-in-out infinite;
+}
+
+/* Scroll-reveal: starts hidden, .is-visible reveals */
+@utility reveal {
+  opacity: 0;
+  transform: translateY(34px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+
+  &.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Falling petals */
+@utility petal {
+  position: absolute;
+  top: 0;
+  border-radius: 60% 0 60% 0;
+  background: #f2d3d8;
+  opacity: 0.7;
+  animation: love-fall linear infinite;
+}
+
+html {
+  scroll-behavior: smooth;
 }
