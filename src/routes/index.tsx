@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
+import { fetchGalleryPhotos } from "@/lib/gallery";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -115,7 +118,13 @@ const GALLERY = [
 ];
 
 function Index() {
+  const { data: photos = [] } = useQuery({
+    queryKey: ["gallery-photos"],
+    queryFn: fetchGalleryPhotos,
+  });
+
   return (
+
     <div className="min-h-screen bg-blush font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush">
@@ -303,16 +312,27 @@ function Index() {
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
-            {GALLERY.map((g, i) => (
+            {(photos.length > 0
+              ? photos.map((p) => ({ caption: p.caption, note: p.note, url: p.url }))
+              : GALLERY.map((g) => ({ ...g, url: "" }))
+            ).map((g, i) => (
               <Reveal key={i} delay={i * 70}>
                 <div className="group [transform:rotate(-2deg)] transition-transform duration-500 hover:[transform:rotate(0deg)]">
                   <div className="bg-white/70 p-3 pb-4 ring-1 ring-black/5">
-                    {/* placeholder slot — replace with real photo later */}
-                    <div className="grid aspect-square w-full place-items-center rounded-md bg-blush/60 outline-1 -outline-offset-1 outline-black/5">
-                      <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-rose/70">
-                        our photo
-                      </span>
-                    </div>
+                    {g.url ? (
+                      <img
+                        src={g.url}
+                        alt={g.caption || "A photo of us"}
+                        loading="lazy"
+                        className="aspect-square w-full rounded-md object-cover"
+                      />
+                    ) : (
+                      <div className="grid aspect-square w-full place-items-center rounded-md bg-blush/60 outline-1 -outline-offset-1 outline-black/5">
+                        <span className="text-[10px] font-medium uppercase tracking-[0.15em] text-rose/70">
+                          our photo
+                        </span>
+                      </div>
+                    )}
                     <p className="mt-3 text-center font-body text-lg italic text-ink/70">
                       {g.caption}
                     </p>
@@ -324,6 +344,7 @@ function Index() {
               </Reveal>
             ))}
           </div>
+
         </div>
       </section>
 
