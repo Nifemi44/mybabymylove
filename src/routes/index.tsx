@@ -118,7 +118,13 @@ const GALLERY = [
 ];
 
 function Index() {
+  const { data: photos = [] } = useQuery({
+    queryKey: ["gallery-photos"],
+    queryFn: fetchGalleryPhotos,
+  });
+
   return (
+
     <div className="min-h-screen bg-blush font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush">
