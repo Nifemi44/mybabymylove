@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { type ReactNode } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
+import { fetchGalleryPhotos } from "@/lib/gallery";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
