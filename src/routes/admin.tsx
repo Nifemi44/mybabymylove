@@ -23,11 +23,11 @@ export const Route = createFileRoute("/admin")({
         content: "Upload and manage the photos shown in our anniversary gallery.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/admin" },
+      { property: "og:url", content: "https://mybabymylove.lovable.app/admin" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "/admin" }],
+    links: [{ rel: "canonical", href: "https://mybabymylove.lovable.app/admin" }],
   }),
   component: AdminPage,
 });

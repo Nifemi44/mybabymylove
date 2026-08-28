@@ -1,8 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
+import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
+
+const SITE_URL = "https://mybabymylove.lovable.app";
+const OG_IMAGE = `${SITE_URL}${ogAsset.url}`;
+
 
 
 export const Route = createFileRoute("/")({
@@ -21,11 +26,19 @@ export const Route = createFileRoute("/")({
           "A little website made with love for Sanaya — celebrating one year and nine months together.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://mybabymylove.lovable.app/" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "For Sanaya — our love story" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
+    links: [{ rel: "canonical", href: "https://mybabymylove.lovable.app/" }],
   }),
   component: Index,
 });
+
 
 /** Wrap a block so it fades/rises in when scrolled into view. */
 function Reveal({
@@ -380,6 +393,13 @@ function Index() {
         <p className="font-body text-lg italic text-wine/70">
           Made with all my heart, for Sanaya ♥
         </p>
+        <Link
+          to="/admin"
+          className="mt-3 inline-block font-body text-xs uppercase tracking-[0.2em] text-ink/25 hover:text-wine/60"
+        >
+          owner
+        </Link>
+
       </footer>
     </div>
   );
