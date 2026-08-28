@@ -21,11 +21,19 @@ export const Route = createFileRoute("/")({
           "A little website made with love for Sanaya — celebrating one year and nine months together.",
       },
       { property: "og:type", content: "website" },
+      { property: "og:url", content: "https://mybabymylove.lovable.app/" },
+      { property: "og:image", content: OG_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:image:alt", content: "For Sanaya — our love story" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
+    links: [{ rel: "canonical", href: "https://mybabymylove.lovable.app/" }],
   }),
   component: Index,
 });
+
 
 /** Wrap a block so it fades/rises in when scrolled into view. */
 function Reveal({
