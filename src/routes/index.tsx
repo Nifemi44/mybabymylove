@@ -3,6 +3,11 @@ import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
+import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
+
+const SITE_URL = "https://mybabymylove.lovable.app";
+const OG_IMAGE = `${SITE_URL}${ogAsset.url}`;
+
 
 
 export const Route = createFileRoute("/")({
