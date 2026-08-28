@@ -264,6 +264,64 @@ function Index() {
         </div>
       </section>
 
+      {/* ---------- CONFESSION: a letter from me ---------- */}
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(110% 110% at 30% 10%, #fbe6ea 0%, #f7d9df 60%, #f3cdd5 100%)",
+          }}
+        />
+        <div className="relative z-10 mx-auto max-w-2xl px-6">
+          <Reveal className="text-center">
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+              a confession, from Nifemi
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-wine md:text-5xl">
+              everything I see in you
+            </h2>
+          </Reveal>
+
+          <Reveal delay={120} as="div" className="mt-12">
+            <div className="relative rounded-sm bg-cream/80 p-8 ring-1 ring-rose/20 sm:p-10">
+              <span
+                aria-hidden="true"
+                className="absolute -top-4 left-8 font-script text-6xl leading-none text-rose/30"
+              >
+                &ldquo;
+              </span>
+              <p className="space-y-6 font-body text-lg leading-relaxed text-ink/80 md:text-xl">
+                <span className="block">
+                  Sanaya, my love — let me say this plainly, because you deserve to
+                  hear it over and over. You are breathtakingly beautiful. Not just
+                  the kind of beauty that turns heads, though it does, but the kind
+                  that fills a room and makes everything else feel a little quieter.
+                  Your eyes — those eyes — are my favorite thing in this whole world.
+                  They hold so much: warmth, mischief, gentleness, and a light that
+                  I could happily drown in. One look from you and I forget every
+                  worry I carried into the day.
+                </span>
+                <span className="block">
+                  And your mind, my love. You are so intelligent it humbles me. The
+                  way you think, the way you notice things I would have missed, the
+                  way you turn ordinary moments into something worth remembering —
+                  it reminds me how lucky I am to be yours. You are beauty and
+                  brilliance wrapped in one person, and somehow that person chose
+                  me. I love you, Sanaya. I love your eyes, your laugh, your mind,
+                  your heart. I love all of you, and I will keep loving you, loudly
+                  and softly, for as long as you let me.
+                </span>
+              </p>
+              <p className="mt-8 text-right font-script text-3xl text-wine">
+                — always yours, Nifemi
+              </p>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---------- TIMELINE: our journey ---------- */}
       <section id="story" className="relative scroll-mt-4 py-24 sm:py-28">
         <div className="mx-auto max-w-3xl px-6">
