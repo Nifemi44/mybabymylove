@@ -17,11 +17,11 @@ export const Route = createFileRoute("/auth")({
         content: "Private sign-in to manage the photos on our anniversary page.",
       },
       { property: "og:type", content: "website" },
-      { property: "og:url", content: "/auth" },
+      { property: "og:url", content: "https://mybabymylove.lovable.app/auth" },
       { name: "twitter:card", content: "summary" },
       { name: "robots", content: "noindex" },
     ],
-    links: [{ rel: "canonical", href: "/auth" }],
+    links: [{ rel: "canonical", href: "https://mybabymylove.lovable.app/auth" }],
   }),
   component: AuthPage,
 });
