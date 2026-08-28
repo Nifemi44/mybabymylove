@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { type ReactNode } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
