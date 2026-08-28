@@ -393,6 +393,13 @@ function Index() {
         <p className="font-body text-lg italic text-wine/70">
           Made with all my heart, for Sanaya ♥
         </p>
+        <Link
+          to="/admin"
+          className="mt-3 inline-block font-body text-xs uppercase tracking-[0.2em] text-ink/25 hover:text-wine/60"
+        >
+          owner
+        </Link>
+
       </footer>
     </div>
   );
