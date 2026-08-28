@@ -60,7 +60,7 @@ export function EnvelopeIntro({ onOpened }: { onOpened: () => void }) {
           <div className="relative aspect-[3/2] w-full">
             {/* letter inside */}
             <div
-              className={`absolute inset-x-[7%] bottom-[8%] top-[10%] rounded-sm bg-cream px-5 py-6 shadow-lg ring-1 ring-rose/25 ${
+              className={`absolute inset-x-[7%] bottom-[8%] top-[10%] z-[2] rounded-sm bg-cream px-5 py-6 shadow-lg ring-1 ring-rose/25 ${
                 opening ? "env-letter-rise" : "opacity-0"
               }`}
             >
@@ -76,7 +76,7 @@ export function EnvelopeIntro({ onOpened }: { onOpened: () => void }) {
             </div>
 
             {/* envelope body */}
-            <div className="absolute inset-0 overflow-hidden rounded-md bg-rose/90 shadow-xl ring-1 ring-wine/15">
+            <div className="absolute inset-0 z-[3] overflow-hidden rounded-md bg-rose/90 shadow-xl ring-1 ring-wine/15">
               <div
                 className="absolute inset-0"
                 style={{
@@ -100,7 +100,7 @@ export function EnvelopeIntro({ onOpened }: { onOpened: () => void }) {
               className={`absolute inset-x-0 top-0 h-1/2 ${
                 opening ? "env-flap-open" : "env-flap"
               }`}
-              style={{ zIndex: opening ? 1 : 3 }}
+              style={{ zIndex: opening ? 1 : 4 }}
             >
               <div
                 className="size-full rounded-t-md"
@@ -113,7 +113,7 @@ export function EnvelopeIntro({ onOpened }: { onOpened: () => void }) {
 
             {/* wax seal */}
             <div
-              className={`absolute left-1/2 top-1/2 z-[4] -translate-x-1/2 -translate-y-1/2 ${
+              className={`absolute left-1/2 top-1/2 z-[5] -translate-x-1/2 -translate-y-1/2 ${
                 opening ? "env-seal-pop" : "transition-transform group-hover:scale-110"
               }`}
             >
