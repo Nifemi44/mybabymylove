@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { type ReactNode } from "react";
+import { useCallback, useState, type ReactNode } from "react";
+import { EnvelopeIntro } from "@/components/envelope-intro";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
@@ -131,14 +132,17 @@ const GALLERY = [
 ];
 
 function Index() {
+  const [opened, setOpened] = useState(false);
+  const handleOpened = useCallback(() => setOpened(true), []);
   const { data: photos = [] } = useQuery({
     queryKey: ["gallery-photos"],
     queryFn: fetchGalleryPhotos,
   });
 
   return (
-
-    <div className="min-h-screen bg-blush font-body text-ink">
+    <>
+    {!opened && <EnvelopeIntro onOpened={handleOpened} />}
+    <div key={opened ? "opened" : "sealed"} className="min-h-screen bg-blush font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush">
         {/* ambient glow blobs */}
@@ -460,5 +464,6 @@ function Index() {
 
       </footer>
     </div>
+    </>
   );
 }
