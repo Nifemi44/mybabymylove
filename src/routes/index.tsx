@@ -95,6 +95,58 @@ function Petals() {
   );
 }
 
+/** Flowers raining down across the screen — red, pink & purple blossoms. */
+function FlowerRain() {
+  const flowers = useMemo(() => {
+    const glyphs = ["🌹", "🌸", "🌷", "💐", "🌺"];
+    const tints = ["#d63a52", "#f27ba6", "#a05ad6", "#e75480", "#b678e8"];
+    return Array.from({ length: 22 }).map((_, i) => ({
+      id: i,
+      left: (i * 97) % 100,
+      size: 16 + ((i * 13) % 20),
+      dur: 9 + ((i * 7) % 9),
+      delay: -((i * 1.7) % 12),
+      glyph: glyphs[i % glyphs.length],
+      tint: tints[i % tints.length],
+    }));
+  }, []);
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
+      {flowers.map((f) => (
+        <span
+          key={f.id}
+          className="flower-fall"
+          style={{
+            left: `${f.left}%`,
+            fontSize: f.size,
+            color: f.tint,
+            animationDuration: `${f.dur}s`,
+            animationDelay: `${f.delay}s`,
+          }}
+        >
+          {f.glyph}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+const FOREVER_PROMISES = [
+  {
+    title: "Years, not months",
+    text: "One year and nine months is only our opening chapter. I'm not here for a season, Sanaya — I'm here for the whole book. Every year, every grey hair, every wrinkle we laugh about.",
+  },
+  {
+    title: "Growing old, staying soft",
+    text: "I promise you slow mornings when we're old, your hand in mine on quiet walks, and a love that never stops flirting with you — even when we're eighty and arguing about tea.",
+  },
+  {
+    title: "A future built for two",
+    text: "A home full of warmth, dreams chased together, hard days held together. Whatever life brings, I want to face it with you beside me — my partner, my best friend, my forever.",
+  },
+];
+
 const TIMELINE = [
   {
     when: "The beginning",
