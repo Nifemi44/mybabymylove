@@ -98,16 +98,15 @@ function Petals() {
 /** Flowers raining down across the screen — red, pink & purple blossoms. */
 function FlowerRain() {
   const flowers = useMemo(() => {
-    const glyphs = ["🌹", "🌸", "🌷", "💐", "🌺"];
     const tints = ["#d63a52", "#f27ba6", "#a05ad6", "#e75480", "#b678e8"];
     return Array.from({ length: 22 }).map((_, i) => ({
       id: i,
       left: (i * 97) % 100,
-      size: 16 + ((i * 13) % 20),
+      size: 14 + ((i * 13) % 18),
       dur: 9 + ((i * 7) % 9),
       delay: -((i * 1.7) % 12),
-      glyph: glyphs[i % glyphs.length],
       tint: tints[i % tints.length],
+      blossom: i % 2 === 0,
     }));
   }, []);
 
@@ -119,13 +118,46 @@ function FlowerRain() {
           className="flower-fall"
           style={{
             left: `${f.left}%`,
-            fontSize: f.size,
-            color: f.tint,
+            width: f.size,
+            height: f.size,
             animationDuration: `${f.dur}s`,
             animationDelay: `${f.delay}s`,
           }}
         >
-          {f.glyph}
+          {f.blossom ? (
+            /* five-petal blossom: four petals + center */
+            <span className="relative block size-full">
+              {[0, 72, 144, 216, 288].map((deg) => (
+                <span
+                  key={deg}
+                  className="absolute left-1/2 top-1/2"
+                  style={{
+                    width: f.size * 0.52,
+                    height: f.size * 0.52,
+                    borderRadius: "50% 50% 50% 0",
+                    background: f.tint,
+                    transform: `translate(-50%, -100%) rotate(${deg}deg)`,
+                    transformOrigin: "50% 100%",
+                    opacity: 0.9,
+                  }}
+                />
+              ))}
+              <span
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cream"
+                style={{ width: f.size * 0.28, height: f.size * 0.28 }}
+              />
+            </span>
+          ) : (
+            /* teardrop petal */
+            <span
+              className="block size-full"
+              style={{
+                background: f.tint,
+                borderRadius: "70% 0 70% 70%",
+                opacity: 0.9,
+              }}
+            />
+          )}
         </span>
       ))}
     </div>
