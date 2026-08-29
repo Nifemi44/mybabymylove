@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import { EnvelopeIntro } from "@/components/envelope-intro";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
