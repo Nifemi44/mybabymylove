@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useCallback, useState, type ReactNode } from "react";
+import { useCallback, useMemo, useState, type ReactNode } from "react";
 import { EnvelopeIntro } from "@/components/envelope-intro";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
@@ -95,6 +95,90 @@ function Petals() {
   );
 }
 
+/** Flowers raining down across the screen — red, pink & purple blossoms. */
+function FlowerRain() {
+  const flowers = useMemo(() => {
+    const tints = ["#d63a52", "#f27ba6", "#a05ad6", "#e75480", "#b678e8"];
+    return Array.from({ length: 22 }).map((_, i) => ({
+      id: i,
+      left: (i * 97) % 100,
+      size: 14 + ((i * 13) % 18),
+      dur: 9 + ((i * 7) % 9),
+      delay: -((i * 1.7) % 12),
+      tint: tints[i % tints.length],
+      blossom: i % 2 === 0,
+    }));
+  }, []);
+
+  return (
+    <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-30 overflow-hidden">
+      {flowers.map((f) => (
+        <span
+          key={f.id}
+          className="flower-fall"
+          style={{
+            left: `${f.left}%`,
+            width: f.size,
+            height: f.size,
+            animationDuration: `${f.dur}s`,
+            animationDelay: `${f.delay}s`,
+          }}
+        >
+          {f.blossom ? (
+            /* five-petal blossom: four petals + center */
+            <span className="relative block size-full">
+              {[0, 72, 144, 216, 288].map((deg) => (
+                <span
+                  key={deg}
+                  className="absolute left-1/2 top-1/2"
+                  style={{
+                    width: f.size * 0.52,
+                    height: f.size * 0.52,
+                    borderRadius: "50% 50% 50% 0",
+                    background: f.tint,
+                    transform: `translate(-50%, -100%) rotate(${deg}deg)`,
+                    transformOrigin: "50% 100%",
+                    opacity: 0.9,
+                  }}
+                />
+              ))}
+              <span
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-cream"
+                style={{ width: f.size * 0.28, height: f.size * 0.28 }}
+              />
+            </span>
+          ) : (
+            /* teardrop petal */
+            <span
+              className="block size-full"
+              style={{
+                background: f.tint,
+                borderRadius: "70% 0 70% 70%",
+                opacity: 0.9,
+              }}
+            />
+          )}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+const FOREVER_PROMISES = [
+  {
+    title: "Years, not months",
+    text: "One year and nine months is only our opening chapter. I'm not here for a season, Sanaya — I'm here for the whole book. Every year, every grey hair, every wrinkle we laugh about.",
+  },
+  {
+    title: "Growing old, staying soft",
+    text: "I promise you slow mornings when we're old, your hand in mine on quiet walks, and a love that never stops flirting with you — even when we're eighty and arguing about tea.",
+  },
+  {
+    title: "A future built for two",
+    text: "A home full of warmth, dreams chased together, hard days held together. Whatever life brings, I want to face it with you beside me — my partner, my best friend, my forever.",
+  },
+];
+
 const TIMELINE = [
   {
     when: "The beginning",
@@ -142,6 +226,7 @@ function Index() {
   return (
     <>
     {!opened && <EnvelopeIntro onOpened={handleOpened} />}
+    {opened && <FlowerRain />}
     <div key={opened ? "opened" : "sealed"} className="min-h-screen bg-blush font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush">
@@ -367,6 +452,64 @@ function Index() {
               ))}
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ---------- FOREVER: long-term love ---------- */}
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div
+          aria-hidden="true"
+          className="a-color-drift absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, #d63a52 0%, #f27ba6 28%, #a05ad6 58%, #e75480 82%, #d63a52 100%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(90% 90% at 50% 50%, transparent 30%, rgba(58,34,41,.35) 100%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+          <Reveal>
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-cream/80">
+              for the long run
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-6xl">
+              not just today, Sanaya — forever
+            </h2>
+            <p className="mx-auto mt-6 max-w-[52ch] text-pretty font-body text-xl italic leading-relaxed text-cream/90 md:text-2xl">
+              Anyone can love someone for a moment. I choose you for a
+              lifetime — through every season, every storm, every slow and
+              ordinary Tuesday.
+            </p>
+          </Reveal>
+
+          <div className="mt-14 grid gap-6 text-left sm:grid-cols-3">
+            {FOREVER_PROMISES.map((p, i) => (
+              <Reveal key={p.title} delay={i * 100}>
+                <div className="h-full rounded-2xl bg-cream/10 p-6 ring-1 ring-cream/25 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1">
+                  <span className="text-2xl text-cream">♥</span>
+                  <h3 className="mt-3 font-heading text-xl font-medium text-cream">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 font-body text-lg leading-relaxed text-cream/85">
+                    {p.text}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <p className="mt-14 font-script text-3xl text-cream md:text-4xl">
+              you &amp; me, always — that's the whole plan.
+            </p>
+          </Reveal>
         </div>
       </section>
 

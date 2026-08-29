@@ -312,6 +312,53 @@ html {
   scroll-behavior: smooth;
 }
 
+/* ---------- Raining flowers (red / pink / purple) ---------- */
+@keyframes love-flower-fall {
+  0% {
+    transform: translate3d(0, -8vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  30% {
+    transform: translate3d(3vw, 24vh, 0) rotate(140deg);
+  }
+  60% {
+    transform: translate3d(-2vw, 58vh, 0) rotate(260deg);
+  }
+  92% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(2vw, 112vh, 0) rotate(400deg);
+    opacity: 0;
+  }
+}
+
+@utility flower-fall {
+  position: absolute;
+  top: 0;
+  animation: love-flower-fall linear infinite;
+  will-change: transform, opacity;
+}
+
+/* Slow, dreamy color-drift glow for the forever section */
+@keyframes love-color-drift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility a-color-drift {
+  background-size: 220% 220%;
+  animation: love-color-drift 14s ease-in-out infinite;
+}
+
 /* ---------- Envelope intro ---------- */
 @keyframes love-env-in {
   from { opacity: 0; transform: translateY(40px) scale(0.94); }
