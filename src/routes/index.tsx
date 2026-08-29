@@ -194,6 +194,7 @@ function Index() {
   return (
     <>
     {!opened && <EnvelopeIntro onOpened={handleOpened} />}
+    {opened && <FlowerRain />}
     <div key={opened ? "opened" : "sealed"} className="min-h-screen bg-blush font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush">
