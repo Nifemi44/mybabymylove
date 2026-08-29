@@ -4,6 +4,9 @@ import { EnvelopeIntro } from "@/components/envelope-intro";
 import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
+import { PhotoSlideshow } from "@/components/photo-slideshow";
+import { BackgroundMusic } from "@/components/background-music";
+
 import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
 
 const SITE_URL = "https://mybabymylove.lovable.app";
