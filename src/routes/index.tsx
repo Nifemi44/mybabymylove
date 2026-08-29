@@ -423,6 +423,64 @@ function Index() {
         </div>
       </section>
 
+      {/* ---------- FOREVER: long-term love ---------- */}
+      <section className="relative overflow-hidden py-24 sm:py-32">
+        <div
+          aria-hidden="true"
+          className="a-color-drift absolute inset-0"
+          style={{
+            background:
+              "linear-gradient(135deg, #d63a52 0%, #f27ba6 28%, #a05ad6 58%, #e75480 82%, #d63a52 100%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(90% 90% at 50% 50%, transparent 30%, rgba(58,34,41,.35) 100%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto max-w-3xl px-6 text-center">
+          <Reveal>
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-cream/80">
+              for the long run
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-6xl">
+              not just today, Sanaya — forever
+            </h2>
+            <p className="mx-auto mt-6 max-w-[52ch] text-pretty font-body text-xl italic leading-relaxed text-cream/90 md:text-2xl">
+              Anyone can love someone for a moment. I choose you for a
+              lifetime — through every season, every storm, every slow and
+              ordinary Tuesday.
+            </p>
+          </Reveal>
+
+          <div className="mt-14 grid gap-6 text-left sm:grid-cols-3">
+            {FOREVER_PROMISES.map((p, i) => (
+              <Reveal key={p.title} delay={i * 100}>
+                <div className="h-full rounded-2xl bg-cream/10 p-6 ring-1 ring-cream/25 backdrop-blur-sm transition-transform duration-300 hover:-translate-y-1">
+                  <span className="text-2xl text-cream">♥</span>
+                  <h3 className="mt-3 font-heading text-xl font-medium text-cream">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 font-body text-lg leading-relaxed text-cream/85">
+                    {p.text}
+                  </p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          <Reveal delay={200}>
+            <p className="mt-14 font-script text-3xl text-cream md:text-4xl">
+              you &amp; me, always — that's the whole plan.
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---------- PHOTO GALLERY (placeholders for later) ---------- */}
       <section className="relative bg-cream py-24 sm:py-28">
         <div className="mx-auto max-w-5xl px-6">
