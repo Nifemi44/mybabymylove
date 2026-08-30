@@ -268,7 +268,7 @@ function Index() {
     {opened && <FlowerRain />}
     {opened && <BackgroundMusic autoStart />}
 
-    <div key={opened ? "opened" : "sealed"} className="min-h-screen bg-blush/95 font-body text-ink">
+    <div key={opened ? "opened" : "sealed"} className="min-h-screen font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush/0">
         {/* ambient glow blobs */}
