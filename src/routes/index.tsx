@@ -6,6 +6,7 @@ import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
 import { BackgroundMusic } from "@/components/background-music";
+import { SurpriseCard } from "@/components/surprise-card";
 
 import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
 
