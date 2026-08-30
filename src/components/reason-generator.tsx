@@ -80,7 +80,7 @@ export function ReasonGenerator() {
 
     setSpinning(true);
     window.setTimeout(() => {
-      setReason(value);
+      setReason(value ?? null);
       setSpinning(false);
     }, 220);
   };
