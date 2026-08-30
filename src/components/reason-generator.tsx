@@ -57,7 +57,9 @@ function shuffled(arr: string[]) {
   const copy = [...arr];
   for (let i = copy.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [copy[i], copy[j]] = [copy[j], copy[i]];
+    const tmp = copy[i]!;
+    copy[i] = copy[j]!;
+    copy[j] = tmp;
   }
   return copy;
 }
@@ -78,7 +80,7 @@ export function ReasonGenerator() {
 
     setSpinning(true);
     window.setTimeout(() => {
-      setReason(value);
+      setReason(value ?? null);
       setSpinning(false);
     }, 220);
   };

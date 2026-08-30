@@ -41,6 +41,129 @@ export type Database = {
         }
         Relationships: []
       }
+      guestbook_entries: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          name: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          name: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          name?: string
+        }
+        Relationships: []
+      }
+      memory_pins: {
+        Row: {
+          created_at: string
+          id: string
+          lat: number
+          lng: number
+          position: number
+          story: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          lat: number
+          lng: number
+          position?: number
+          story: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          lat?: number
+          lng?: number
+          position?: number
+          story?: string
+          title?: string
+        }
+        Relationships: []
+      }
+      site_audio: {
+        Row: {
+          created_at: string
+          id: string
+          storage_path: string
+          title: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          storage_path: string
+          title?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          storage_path?: string
+          title?: string | null
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          future_letter_text: string | null
+          future_letter_unlock: string | null
+          id: boolean
+          relationship_start: string | null
+          updated_at: string
+        }
+        Insert: {
+          future_letter_text?: string | null
+          future_letter_unlock?: string | null
+          id?: boolean
+          relationship_start?: string | null
+          updated_at?: string
+        }
+        Update: {
+          future_letter_text?: string | null
+          future_letter_unlock?: string | null
+          id?: boolean
+          relationship_start?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      song_library: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          position: number
+          storage_path: string
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          position?: number
+          storage_path: string
+          title: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          position?: number
+          storage_path?: string
+          title?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -59,6 +182,24 @@ export type Database = {
           id?: string
           role?: Database["public"]["Enums"]["app_role"]
           user_id?: string
+        }
+        Relationships: []
+      }
+      voice_notes: {
+        Row: {
+          created_at: string
+          id: string
+          storage_path: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          storage_path: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          storage_path?: string
         }
         Relationships: []
       }

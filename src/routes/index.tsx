@@ -6,6 +6,7 @@ import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
 import { BackgroundMusic } from "@/components/background-music";
+import { SurpriseCard } from "@/components/surprise-card";
 
 import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
 
@@ -53,7 +54,7 @@ function ClickSparkles() {
       const count = 5;
       for (let i = 0; i < count; i++) {
         const el = document.createElement("span");
-        el.textContent = glyphs[i % glyphs.length];
+        el.textContent = glyphs[i % glyphs.length] ?? null;
         const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
         const distance = 28 + Math.random() * 26;
         const lx = Math.cos(angle) * distance;
@@ -62,7 +63,7 @@ function ClickSparkles() {
         el.style.left = `${e.clientX}px`;
         el.style.top = `${e.clientY}px`;
         el.style.fontSize = `${10 + Math.round(Math.random() * 6)}px`;
-        el.style.color = colors[i % colors.length];
+        el.style.color = colors[i % colors.length] ?? "";
         el.style.setProperty("--lx", `${lx}px`);
         el.style.setProperty("--ly", `${ly}px`);
         document.body.appendChild(el);
@@ -267,7 +268,7 @@ function Index() {
     {opened && <FlowerRain />}
     {opened && <BackgroundMusic autoStart />}
 
-    <div key={opened ? "opened" : "sealed"} className="min-h-screen bg-blush/95 font-body text-ink">
+    <div key={opened ? "opened" : "sealed"} className="min-h-screen font-body text-ink">
       {/* ---------- HERO: animated welcome ---------- */}
       <section className="relative min-h-screen overflow-hidden bg-blush/0">
         {/* ambient glow blobs */}
@@ -451,6 +452,26 @@ function Index() {
                 — always yours, Nifemi
               </p>
             </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ---------- SURPRISE CARD ---------- */}
+      <section className="relative py-24 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <Reveal className="text-center">
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+              psst… one more thing
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-wine md:text-5xl">
+              a little surprise for you
+            </h2>
+            <p className="mt-4 font-body text-lg italic text-ink/60">
+              tap the card, my love — it's all yours.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="mt-12">
+            <SurpriseCard />
           </Reveal>
         </div>
       </section>
