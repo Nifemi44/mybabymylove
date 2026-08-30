@@ -456,6 +456,26 @@ function Index() {
         </div>
       </section>
 
+      {/* ---------- SURPRISE CARD ---------- */}
+      <section className="relative py-24 sm:py-28">
+        <div className="mx-auto max-w-3xl px-6 text-center">
+          <Reveal className="text-center">
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+              psst… one more thing
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-wine md:text-5xl">
+              a little surprise for you
+            </h2>
+            <p className="mt-4 font-body text-lg italic text-ink/60">
+              tap the card, my love — it's all yours.
+            </p>
+          </Reveal>
+          <Reveal delay={120} className="mt-12">
+            <SurpriseCard />
+          </Reveal>
+        </div>
+      </section>
+
       {/* ---------- TIMELINE: our journey ---------- */}
       <section id="story" className="relative scroll-mt-4 py-24 sm:py-28">
         <div className="mx-auto max-w-3xl px-6">
