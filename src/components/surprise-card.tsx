@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 /**
- * A sealed red card covered in love emojis. Tapping it flips it open to
- * reveal a hidden surprise message from Nifemi to Sanaya.
+ * A sealed red card covered in love emojis. Tapping it opens to reveal a
+ * hidden surprise message from Nifemi to Sanaya.
  */
 const EMOJIS = ["❤️", "💕", "💖", "😍", "🥰", "💘", "💗", "💞"];
 
@@ -11,49 +11,37 @@ export function SurpriseCard() {
 
   return (
     <div className="mx-auto max-w-md px-6">
-      <div
-        className="relative h-72 w-full [perspective:1400px]"
-        style={{ minHeight: 280 }}
-      >
-        {/* hidden message (revealed side) */}
+      <div className="relative h-80 w-full" style={{ minHeight: 300 }}>
+        {/* revealed message */}
         <div
-          className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-cream p-8 text-center shadow-xl ring-1 ring-rose/30 transition-all duration-500 ${
-            open
-              ? "[transform:rotateY(180deg)] [backface-visibility:hidden] opacity-0"
-              : "[transform:rotateY(0deg)] [backface-visibility:hidden]"
+          className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl bg-cream p-8 text-center shadow-xl ring-1 ring-rose/30 transition-opacity duration-500 ${
+            open ? "opacity-100" : "pointer-events-none opacity-0"
           }`}
-          aria-hidden={open}
+          aria-hidden={!open}
         >
-          <div
-            className={`absolute inset-0 flex flex-col items-center justify-center rounded-2xl p-8 text-center transition-all duration-500 [backface-visibility:hidden] ${
-              open ? "opacity-100" : "opacity-0"
-            }`}
-            style={{ transform: "rotateY(180deg)" }}
-          >
-            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
-              your surprise
-            </p>
-            <p className="mt-4 font-script text-2xl leading-snug text-wine md:text-3xl">
-              You are the best thing that ever happened to me, Sanaya.
-            </p>
-            <p className="mt-4 font-body text-lg italic leading-relaxed text-ink/75">
-              Close your eyes, make a wish — I already wished for you, and look,
-              it came true. Happy anniversary, my love.
-            </p>
-            <p className="mt-4 text-2xl">❤️💖🥰</p>
-            <p className="mt-4 font-script text-xl text-wine">
-              forever yours, Nifemi
-            </p>
-          </div>
+          <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+            your surprise
+          </p>
+          <p className="mt-4 font-script text-2xl leading-snug text-wine md:text-3xl">
+            You are the best thing that ever happened to me, Sanaya.
+          </p>
+          <p className="mt-4 font-body text-lg italic leading-relaxed text-ink/75">
+            Close your eyes, make a wish — I already wished for you, and look,
+            it came true. Happy anniversary, my love.
+          </p>
+          <p className="mt-4 text-2xl">❤️💖🥰</p>
+          <p className="mt-4 font-script text-xl text-wine">
+            forever yours, Nifemi
+          </p>
         </div>
 
-        {/* front (sealed) red card with love emojis */}
+        {/* sealed red card with love emojis */}
         <button
           type="button"
           onClick={() => setOpen(true)}
           aria-label="Open your surprise card"
-          className={`absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl text-center shadow-xl ring-1 ring-wine/30 transition-all duration-500 [backface-visibility:hidden] ${
-            open ? "opacity-0" : "opacity-100"
+          className={`absolute inset-0 flex flex-col items-center justify-center gap-4 rounded-2xl text-center shadow-xl ring-1 ring-wine/30 transition-opacity duration-500 ${
+            open ? "pointer-events-none opacity-0" : "opacity-100"
           }`}
           style={{
             background:
