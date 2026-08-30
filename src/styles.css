@@ -428,11 +428,11 @@ html {
   z-index: -1;
   background: linear-gradient(
     120deg,
-    #fdf1ee 0%,
-    #f9e4ef 22%,
-    #f3e6fb 46%,
-    #f9e4ef 70%,
-    #fdf1ee 100%
+    #fde2f3 0%,
+    #f3e8ff 22%,
+    #f9d7ec 46%,
+    #e8d9ff 70%,
+    #fde2f3 100%
   );
   background-size: 300% 300%;
   animation: luxury-gradient-drift 22s ease-in-out infinite;
