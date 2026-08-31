@@ -44,6 +44,26 @@ export function EnvelopeIntro({ onOpened }: { onOpened: () => void }) {
         />
       </div>
 
+      {/* floating love emojis */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
+        {["❤️", "💕", "💖", "🥰", "💘", "💗", "💞", "😍", "💝", "💌", "💓", "🌹"].map((em, i) => (
+          <span
+            key={i}
+            className="a-floaty absolute"
+            style={{
+              left: `${(i * 29) % 88 + 4}%`,
+              top: `${(i * 41) % 82 + 6}%`,
+              fontSize: `${16 + ((i * 7) % 18)}px`,
+              opacity: 0.75,
+              animationDelay: `${(i % 5) * 0.7}s`,
+              animationDuration: `${5 + (i % 4)}s`,
+            }}
+          >
+            {em}
+          </span>
+        ))}
+      </div>
+
       <div className="env-in relative z-10 flex w-full max-w-lg flex-col items-center text-center">
         <p className="font-heading text-xs uppercase tracking-[0.35em] text-rose sm:text-sm">
           a letter for you
