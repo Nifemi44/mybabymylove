@@ -141,9 +141,9 @@ export function TeddySurprise() {
       <div className="relative">
         {showHint && (
           <div
-            className={`teddy-hint pointer-events-none absolute left-1/2 w-max -translate-x-1/2 whitespace-nowrap rounded-full bg-wine px-4 py-1.5 font-script text-base text-cream shadow-lg ${
+            className={`teddy-hint pointer-events-none absolute w-max whitespace-nowrap rounded-full bg-wine px-4 py-1.5 font-script text-base text-cream shadow-lg ${
               hintBelow ? "top-full mt-3" : "bottom-full mb-3"
-            }`}
+            } ${onRight ? "right-0" : "left-0"}`}
           >
             find me… 🧸
           </div>
