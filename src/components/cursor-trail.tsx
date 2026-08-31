@@ -18,7 +18,7 @@ export function CursorTrail() {
       lastSpawn.current = now;
 
       const el = document.createElement("span");
-      el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+      el.textContent = glyphs[Math.floor(Math.random() * glyphs.length)] ?? "♥";
       el.style.position = "fixed";
       el.style.left = `${e.clientX}px`;
       el.style.top = `${e.clientY}px`;
