@@ -9,7 +9,9 @@ function shuffledTiles(): Tile[] {
   const tiles = NAME.map((letter, id) => ({ id, letter, used: false }));
   for (let i = tiles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+    const tmp = tiles[i]!;
+    tiles[i] = tiles[j]!;
+    tiles[j] = tmp;
   }
   return tiles;
 }
@@ -17,7 +19,11 @@ function shuffledTiles(): Tile[] {
 /** A little letter puzzle, against a 5-second clock: spell "Nifemi" before time runs out. */
 export function NamePuzzle() {
   const [round, setRound] = useState(0);
-  const [tiles, setTiles] = useState<Tile[]>(() => shuffledTiles());
+  // Server and client must render the same first paint, so start unshuffled
+  // and shuffle after mount.
+  const [tiles, setTiles] = useState<Tile[]>(() =>
+    NAME.map((letter, id) => ({ id, letter, used: false })),
+  );
   const [filled, setFilled] = useState<string[]>([]);
   const [shakeId, setShakeId] = useState<number | null>(null);
   const [solved, setSolved] = useState(false);

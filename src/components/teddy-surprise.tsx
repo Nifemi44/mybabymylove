@@ -134,16 +134,19 @@ export function TeddySurprise() {
 
   // The hint bubble sits above the bear on the bottom-anchored spots, and
   // below it on the top-anchored ones, so it never drifts off-screen.
-  const hintBelow = SPOTS[spotIndex].startsWith("top");
+  const spot = SPOTS[spotIndex] ?? "";
+  const hintBelow = spot.startsWith("top");
+  // Keep the bubble inside the viewport: anchor it to whichever edge the bear sits on.
+  const onRight = spot.includes("right");
 
   return (
     <div className={`fixed z-40 transition-[bottom,top,left,right] duration-700 ${SPOTS[spotIndex]}`}>
       <div className="relative">
         {showHint && (
           <div
-            className={`teddy-hint pointer-events-none absolute left-1/2 w-max -translate-x-1/2 whitespace-nowrap rounded-full bg-wine px-4 py-1.5 font-script text-base text-cream shadow-lg ${
+            className={`teddy-hint pointer-events-none absolute w-max whitespace-nowrap rounded-full bg-wine px-4 py-1.5 font-script text-base text-cream shadow-lg ${
               hintBelow ? "top-full mt-3" : "bottom-full mb-3"
-            }`}
+            } ${onRight ? "right-0" : "left-0"}`}
           >
             find me… 🧸
           </div>

@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { seededRandom } from "@/lib/rand";
 
 type Stage = "closed" | "opening" | "note" | "done";
 
@@ -18,13 +19,14 @@ const STORAGE_KEY = "sanaya-intro-seen-v2";
 
 function FloatingHearts() {
   const hearts = useMemo(() => {
+    const rand = seededRandom(1907);
     const glyphs = ["♥", "♡", "✦", "❀"];
     return Array.from({ length: 16 }).map((_, i) => ({
       id: i,
-      left: Math.round(Math.random() * 96),
-      size: 12 + Math.round(Math.random() * 16),
-      duration: 7 + Math.round(Math.random() * 8),
-      delay: Math.round(Math.random() * 8),
+      left: Math.round(rand() * 96),
+      size: 12 + Math.round(rand() * 16),
+      duration: 7 + Math.round(rand() * 8),
+      delay: Math.round(rand() * 8),
       glyph: glyphs[i % glyphs.length],
     }));
   }, []);
@@ -53,15 +55,16 @@ function FloatingHearts() {
 
 function ConfettiBurst() {
   const pieces = useMemo(() => {
+    const rand = seededRandom(2409);
     const emojis = ["♥", "♡", "✦"];
     return Array.from({ length: 26 }).map((_, i) => {
-      const angle = Math.random() * Math.PI * 2;
-      const distance = 100 + Math.random() * 150;
+      const angle = rand() * Math.PI * 2;
+      const distance = 100 + rand() * 150;
       const tx = Math.round(Math.cos(angle) * distance);
       const ty = Math.round(Math.sin(angle) * distance - 70);
-      const rot = Math.round(Math.random() * 360);
-      const delay = Math.round(Math.random() * 150);
-      const size = 12 + Math.round(Math.random() * 10);
+      const rot = Math.round(rand() * 360);
+      const delay = Math.round(rand() * 150);
+      const size = 12 + Math.round(rand() * 10);
       const color = i % 3 === 0 ? "#e0335c" : "#ef5da8";
       return { id: i, tx, ty, rot, delay, size, color, emoji: emojis[i % emojis.length] };
     });

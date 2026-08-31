@@ -1,15 +1,17 @@
 import { useMemo } from "react";
+import { seededRandom } from "@/lib/rand";
 
 export function AmbientSparkles() {
   const items = useMemo(() => {
+    const rand = seededRandom(20260831);
     const glyphs = ["♥", "♡", "✦", "❀"];
     return Array.from({ length: 16 }).map((_, i) => ({
       id: i,
-      top: Math.round(Math.random() * 100),
-      left: Math.round(Math.random() * 100),
-      size: 10 + Math.round(Math.random() * 14),
-      duration: 6 + Math.round(Math.random() * 8),
-      delay: Math.round(Math.random() * 6),
+      top: Math.round(rand() * 100),
+      left: Math.round(rand() * 100),
+      size: 10 + Math.round(rand() * 14),
+      duration: 6 + Math.round(rand() * 8),
+      delay: Math.round(rand() * 6),
       glyph: glyphs[i % glyphs.length],
       color: i % 2 === 0 ? "#ef5da8" : "#e0335c",
     }));
