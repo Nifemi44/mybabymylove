@@ -586,11 +586,12 @@ function Index() {
               little moments we keep
             </p>
             <h2 className="mt-4 font-heading text-4xl font-semibold text-wine md:text-5xl">
-              our gallery, waiting to fill
+              {photos.length > 0 ? "our little gallery of us" : "our gallery, waiting to fill"}
             </h2>
             <p className="mt-4 font-body text-lg italic text-ink/55">
-              these little frames are waiting for our pictures — I'll fill them
-              in soon, just for us.
+              {photos.length > 0
+                ? "every frame here is a moment I never want to forget."
+                : "these little frames are waiting for our pictures — I'll fill them in soon, just for us."}
             </p>
           </Reveal>
 
