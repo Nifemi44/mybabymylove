@@ -9,7 +9,9 @@ function shuffledTiles(): Tile[] {
   const tiles = NAME.map((letter, id) => ({ id, letter, used: false }));
   for (let i = tiles.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
-    [tiles[i], tiles[j]] = [tiles[j], tiles[i]];
+    const tmp = tiles[i]!;
+    tiles[i] = tiles[j]!;
+    tiles[j] = tmp;
   }
   return tiles;
 }
