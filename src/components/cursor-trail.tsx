@@ -23,7 +23,7 @@ export function CursorTrail() {
       el.style.left = `${e.clientX}px`;
       el.style.top = `${e.clientY}px`;
       el.style.fontSize = `${8 + Math.round(Math.random() * 6)}px`;
-      el.style.color = colors[Math.floor(Math.random() * colors.length)];
+      el.style.color = colors[Math.floor(Math.random() * colors.length)] ?? "#e7a0a8";
       el.style.pointerEvents = "none";
       el.style.zIndex = "9998";
       el.style.transform = "translate(-50%, -50%)";
