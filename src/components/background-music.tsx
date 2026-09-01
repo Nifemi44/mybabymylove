@@ -105,24 +105,38 @@ export function BackgroundMusic({ autoStart = false }: { autoStart?: boolean }) 
   }, [autoStart, src]);
 
   const toggle = () => {
-    const audio = audioRef.current;
-    if (!audio) return;
+    if (src) {
+      const audio = audioRef.current;
+      if (!audio) return;
+      if (playing) {
+        audio.pause();
+        setPlaying(false);
+        wantsPlaying.current = false;
+      } else {
+        audio.play().catch(() => {});
+        setPlaying(true);
+        wantsPlaying.current = true;
+      }
+      return;
+    }
+
+    const score = scoreRef.current;
+    if (!score) return;
     if (playing) {
-      audio.pause();
+      score.stop();
       setPlaying(false);
       wantsPlaying.current = false;
     } else {
-      audio.play().catch(() => {});
-      setPlaying(true);
       wantsPlaying.current = true;
+      score.start().then(() => setPlaying(true)).catch(() => {});
     }
   };
 
-  if (!src) return null;
+  if (!ready) return null;
 
   return (
     <>
-      <audio ref={audioRef} src={src} loop preload="auto" />
+      {src && <audio ref={audioRef} src={src} loop preload="auto" />}
       <button
         type="button"
         onClick={toggle}
