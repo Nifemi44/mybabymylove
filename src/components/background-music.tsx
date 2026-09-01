@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { fetchActiveAudio } from "@/lib/audio";
+import { createRomanticScore } from "@/lib/romantic-synth";
 
 /**
  * Plays whichever track the admin has most recently uploaded (via /admin).
