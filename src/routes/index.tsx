@@ -61,7 +61,7 @@ function ClickSparkles() {
       const count = 5;
       for (let i = 0; i < count; i++) {
         const el = document.createElement("span");
-        el.textContent = glyphs[i % glyphs.length];
+        el.textContent = glyphs[i % glyphs.length] ?? "♥";
         const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
         const distance = 28 + Math.random() * 26;
         const lx = Math.cos(angle) * distance;
