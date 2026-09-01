@@ -13,22 +13,63 @@ export function BackgroundMusic({ autoStart = false }: { autoStart?: boolean }) 
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [src, setSrc] = useState<string | null>(null);
   const [playing, setPlaying] = useState(false);
+  const [ready, setReady] = useState(false);
   const wantsPlaying = useRef(autoStart);
+  const scoreRef = useRef<ReturnType<typeof createRomanticScore> | null>(null);
 
   // Load whichever track is currently active.
   useEffect(() => {
     let cancelled = false;
     fetchActiveAudio()
       .then((track) => {
-        if (!cancelled && track) setSrc(track.url);
+        if (cancelled) return;
+        if (track) setSrc(track.url);
+        setReady(true);
       })
       .catch(() => {
-        // No track uploaded yet, or a fetch error — fail silently, no music.
+        // No track uploaded yet, or a fetch error — fall back to the built-in score.
+        if (!cancelled) setReady(true);
       });
     return () => {
       cancelled = true;
     };
   }, []);
+
+  // Built-in romantic piano score, used when no custom track exists.
+  useEffect(() => {
+    if (!ready || src) return;
+    const score = createRomanticScore();
+    scoreRef.current = score;
+
+    let started = false;
+    const events: (keyof WindowEventMap)[] = ["click", "touchstart", "keydown", "scroll"];
+    const cleanup = () => events.forEach((ev) => window.removeEventListener(ev, onGesture));
+    const tryStart = () => {
+      if (started || !wantsPlaying.current) return;
+      score
+        .start()
+        .then(() => {
+          started = true;
+          setPlaying(true);
+          cleanup();
+        })
+        .catch(() => {});
+    };
+    function onGesture() {
+      tryStart();
+    }
+
+    if (autoStart) {
+      tryStart();
+      events.forEach((ev) => window.addEventListener(ev, onGesture, { passive: true }));
+    }
+
+    return () => {
+      cleanup();
+      score.stop();
+      scoreRef.current = null;
+    };
+  }, [ready, src, autoStart]);
 
   // Try to autoplay once a track is loaded; fall back to first user gesture.
   useEffect(() => {
