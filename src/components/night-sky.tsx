@@ -1,24 +1,28 @@
 import { useMemo } from "react";
+import { seededRandom } from "@/lib/rand";
 
 /** A field of twinkling stars plus a couple of slow shooting stars. By default it's
  *  absolutely positioned to fill its nearest positioned ancestor (for use inside one
  *  section); pass `fixed` to make it cover the whole viewport instead. */
 export function NightSky({ count = 70, fixed = false }: { count?: number; fixed?: boolean }) {
   const stars = useMemo(() => {
+    // Deterministic so server and client render identically (no hydration drift).
+    const rand = seededRandom(count * 7919 + 13);
     return Array.from({ length: count }).map((_, i) => {
       const big = i % 11 === 0;
       return {
         id: i,
-        top: Math.round(Math.random() * 100),
-        left: Math.round(Math.random() * 100),
-        size: big ? 3 + Math.random() * 2 : 1 + Math.random() * 1.6,
+        top: Math.round(rand() * 100),
+        left: Math.round(rand() * 100),
+        size: Math.round((big ? 3 + rand() * 2 : 1 + rand() * 1.6) * 1000) / 1000,
         glyph: big ? "✦" : "•",
-        duration: 2 + Math.random() * 3,
-        delay: Math.round(Math.random() * 5000) / 1000,
+        duration: Math.round((2 + rand() * 3) * 1000) / 1000,
+        delay: Math.round(rand() * 5000) / 1000,
         color: i % 5 === 0 ? "#f4c76b" : i % 5 === 1 ? "#f0b8d9" : "#ffffff",
       };
     });
   }, [count]);
+
 
   const shootingStars = [
     { top: 12, left: -10, delay: 1.5, duration: 3.4 },
