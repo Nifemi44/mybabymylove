@@ -16,6 +16,9 @@ import { ScratchCard } from "@/components/scratch-card";
 import { SurpriseCard } from "@/components/surprise-card";
 import { NightSky } from "@/components/night-sky";
 import { Moon } from "@/components/moon";
+import { HeartMatch } from "@/components/heart-match";
+import { LoveQuiz } from "@/components/love-quiz";
+import { useLoveLock } from "@/lib/love-lock";
 
 import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
 
@@ -63,7 +66,7 @@ function ClickSparkles() {
       const count = 5;
       for (let i = 0; i < count; i++) {
         const el = document.createElement("span");
-        el.textContent = glyphs[i % glyphs.length];
+        el.textContent = glyphs[i % glyphs.length] ?? "♥";
         const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
         const distance = 28 + Math.random() * 26;
         const lx = Math.cos(angle) * distance;
@@ -72,7 +75,7 @@ function ClickSparkles() {
         el.style.left = `${e.clientX}px`;
         el.style.top = `${e.clientY}px`;
         el.style.fontSize = `${10 + Math.round(Math.random() * 6)}px`;
-        el.style.color = colors[i % colors.length];
+        el.style.color = colors[i % colors.length] ?? "#7a2e43";
         el.style.setProperty("--lx", `${lx}px`);
         el.style.setProperty("--ly", `${ly}px`);
         document.body.appendChild(el);
@@ -264,6 +267,7 @@ const GALLERY = [
 function Index() {
   const [opened, setOpened] = useState(false);
   const handleOpened = useCallback(() => setOpened(true), []);
+  const loveLock = useLoveLock();
   const { data: photos = [] } = useQuery({
     queryKey: ["gallery-photos"],
     queryFn: fetchGalleryPhotos,
@@ -629,6 +633,59 @@ function Index() {
           </Reveal>
         </div>
       </section>
+
+
+
+
+
+      {/* ---------- LOVE GAMES → SECRET NOTE ---------- */}
+      <section id="games" className="relative scroll-mt-4 py-24 sm:py-28">
+        <div className="relative z-10 mx-auto max-w-4xl px-6">
+          <Reveal className="text-center">
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+              two keys to a secret
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-5xl">
+              win them both, my love
+            </h2>
+            <p className="mt-4 font-body text-lg italic text-cream/70">
+              there's a hidden letter waiting for you, Sanaya. finish both little
+              games and it opens.
+            </p>
+            <p className="mt-3 font-body text-sm text-cream/60">
+              {loveLock.done} of {loveLock.total} keys unlocked
+            </p>
+          </Reveal>
+
+          <Reveal delay={100} className="mt-14">
+            <p className="text-center font-script text-2xl text-cream">
+              game one — find every pair
+            </p>
+            <div className="mt-6 rounded-3xl bg-cream/85 p-6 shadow-lg ring-1 ring-rose/25">
+              <HeartMatch />
+            </div>
+          </Reveal>
+
+          <Reveal delay={160} className="mt-14">
+            <p className="text-center font-script text-2xl text-cream">
+              game two — how well do you know us?
+            </p>
+            <div className="mt-6">
+              <LoveQuiz />
+            </div>
+          </Reveal>
+
+          <Reveal delay={220} className="mt-12 text-center">
+            <Link
+              to="/love-note"
+              className="luxury-clickable inline-flex items-center gap-2 rounded-full bg-wine px-8 py-4 font-heading text-sm uppercase tracking-[0.2em] text-cream shadow-lg"
+            >
+              {loveLock.unlocked ? "open the secret note 💌" : "the secret note 🔒"}
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
 
       {/* ---------- PHOTO GALLERY (placeholders for later) ---------- */}
       <section className="relative bg-night/70 py-24 sm:py-28">
