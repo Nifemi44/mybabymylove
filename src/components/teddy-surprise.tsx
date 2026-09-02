@@ -149,7 +149,7 @@ export function TeddySurprise() {
 
   // The hint bubble sits above the bear on the bottom-anchored spots, and
   // below it on the top-anchored ones, so it never drifts off-screen.
-  const hintBelow = SPOTS[spotIndex].startsWith("top");
+  const hintBelow = (SPOTS[spotIndex] ?? SPOTS[0]).startsWith("top");
 
   return (
     <div className={`fixed z-40 transition-[bottom,top,left,right] duration-700 ${SPOTS[spotIndex]}`}>
