@@ -267,6 +267,7 @@ const GALLERY = [
 function Index() {
   const [opened, setOpened] = useState(false);
   const handleOpened = useCallback(() => setOpened(true), []);
+  const loveLock = useLoveLock();
   const { data: photos = [] } = useQuery({
     queryKey: ["gallery-photos"],
     queryFn: fetchGalleryPhotos,
