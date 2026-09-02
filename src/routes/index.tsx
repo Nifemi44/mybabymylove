@@ -75,7 +75,7 @@ function ClickSparkles() {
         el.style.left = `${e.clientX}px`;
         el.style.top = `${e.clientY}px`;
         el.style.fontSize = `${10 + Math.round(Math.random() * 6)}px`;
-        el.style.color = colors[i % colors.length];
+        el.style.color = colors[i % colors.length] ?? "#7a2e43";
         el.style.setProperty("--lx", `${lx}px`);
         el.style.setProperty("--ly", `${ly}px`);
         document.body.appendChild(el);
