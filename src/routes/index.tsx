@@ -16,6 +16,9 @@ import { ScratchCard } from "@/components/scratch-card";
 import { SurpriseCard } from "@/components/surprise-card";
 import { NightSky } from "@/components/night-sky";
 import { Moon } from "@/components/moon";
+import { HeartMatch } from "@/components/heart-match";
+import { LoveQuiz } from "@/components/love-quiz";
+import { useLoveLock } from "@/lib/love-lock";
 
 import ogAsset from "@/assets/og-sanaya.jpg.asset.json";
 
