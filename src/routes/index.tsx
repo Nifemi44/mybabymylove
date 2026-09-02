@@ -627,7 +627,10 @@ function Index() {
           <Reveal delay={120} className="mt-12">
             <NamePuzzle />
           </Reveal>
+        </div>
       </section>
+
+
 
 
 
