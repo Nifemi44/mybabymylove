@@ -1,19 +1,23 @@
 import { useEffect, useMemo, useRef, useState } from "react";
+import { seededRandom } from "@/lib/rand";
 
 /** Small decorative flowers drifting gently around the card. */
 function FloatingFlowers() {
   const flowers = useMemo(() => {
     const glyphs = ["🌸", "🌷", "💮", "🌺"];
+    // Deterministic so SSR and hydration agree.
+    const rand = seededRandom(4242);
     return Array.from({ length: 6 }).map((_, i) => ({
       id: i,
       glyph: glyphs[i % glyphs.length],
-      left: Math.round(Math.random() * 90) + 5,
-      top: Math.round(Math.random() * 80) + 5,
-      size: 14 + Math.round(Math.random() * 10),
-      duration: 6 + Math.round(Math.random() * 5),
-      delay: Math.round(Math.random() * 3000) / 1000,
+      left: Math.round(rand() * 90) + 5,
+      top: Math.round(rand() * 80) + 5,
+      size: 14 + Math.round(rand() * 10),
+      duration: 6 + Math.round(rand() * 5),
+      delay: Math.round(rand() * 3000) / 1000,
     }));
   }, []);
+
 
   return (
     <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
