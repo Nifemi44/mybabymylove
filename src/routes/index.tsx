@@ -627,7 +627,9 @@ function Index() {
           <Reveal delay={120} className="mt-12">
             <NamePuzzle />
           </Reveal>
-        </div>
+      </section>
+
+
 
       {/* ---------- LOVE GAMES → SECRET NOTE ---------- */}
       <section id="games" className="relative scroll-mt-4 py-24 sm:py-28">
