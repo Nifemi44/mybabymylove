@@ -103,6 +103,15 @@ export function PhotoSlideshow({
           />
         ))}
       </div>
+
+      {lightboxOpen && (
+        <PhotoLightbox
+          photos={photos}
+          index={index}
+          onIndexChange={setIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
     </div>
   );
 }
