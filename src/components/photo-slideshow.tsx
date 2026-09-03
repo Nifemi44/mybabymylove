@@ -25,7 +25,7 @@ export function PhotoSlideshow({
   }, [photos.length, index]);
 
   useEffect(() => {
-    if (photos.length <= 1) return;
+    if (photos.length <= 1 || lightboxOpen) return;
     const id = window.setInterval(
       () => setIndex((i) => (i + 1) % photos.length),
       interval,
