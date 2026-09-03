@@ -67,6 +67,19 @@ export function PhotoSlideshow({
               </div>
             );
           })}
+
+          {photos[index]?.url && !failed[index] && (
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              aria-label="View photo full screen"
+              className="group absolute inset-0 cursor-zoom-in"
+            >
+              <span className="absolute bottom-2 right-2 rounded-full bg-wine/70 px-3 py-1 font-body text-[11px] text-cream opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                tap to zoom
+              </span>
+            </button>
+          )}
         </div>
 
         <p className="mt-3 min-h-[1.5rem] break-words px-2 text-center font-body text-base italic text-ink/70 sm:mt-4 sm:text-lg">
