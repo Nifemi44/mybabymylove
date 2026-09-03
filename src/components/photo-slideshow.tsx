@@ -16,6 +16,7 @@ export function PhotoSlideshow({
 }) {
   const [index, setIndex] = useState(0);
   const [failed, setFailed] = useState<Record<number, boolean>>({});
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // If the photo list changes (e.g. loads in after the initial render),
   // make sure the current index is still valid instead of showing a blank frame.
