@@ -64,7 +64,7 @@ function ClickSparkles() {
       const count = 5;
       for (let i = 0; i < count; i++) {
         const el = document.createElement("span");
-        el.textContent = glyphs[i % glyphs.length];
+        el.textContent = glyphs[i % glyphs.length] ?? "♥";
         const angle = (Math.PI * 2 * i) / count + Math.random() * 0.6;
         const distance = 28 + Math.random() * 26;
         const lx = Math.cos(angle) * distance;
@@ -73,7 +73,7 @@ function ClickSparkles() {
         el.style.left = `${e.clientX}px`;
         el.style.top = `${e.clientY}px`;
         el.style.fontSize = `${10 + Math.round(Math.random() * 6)}px`;
-        el.style.color = colors[i % colors.length];
+        el.style.color = colors[i % colors.length] ?? "#7a2e43";
         el.style.setProperty("--lx", `${lx}px`);
         el.style.setProperty("--ly", `${ly}px`);
         document.body.appendChild(el);
@@ -639,7 +639,7 @@ function Index() {
               little moments we keep
             </p>
             <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-5xl">
-              our gallery, waiting to fill
+              your amazing and beautiful pictures
             </h2>
             <p className="mt-4 font-body text-lg italic text-cream/60">
               these little frames are waiting for our pictures — I'll fill them
