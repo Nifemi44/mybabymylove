@@ -34,9 +34,9 @@ export function PhotoSlideshow({
   if (photos.length === 0) return null;
 
   return (
-    <div className="mx-auto mt-14 max-w-2xl">
-      <div className="relative bg-white/70 p-3 pb-5 ring-1 ring-black/5 shadow-[0_20px_60px_-25px_rgba(90,20,40,.45)]">
-        <div className="relative aspect-square w-full overflow-hidden rounded-md bg-blush/60">
+    <div className="mx-auto mt-10 w-full max-w-[min(92vw,34rem)] px-1 sm:mt-14 sm:max-w-xl lg:max-w-2xl">
+      <div className="relative rounded-lg bg-white/70 p-2 pb-4 ring-1 ring-black/5 shadow-[0_20px_60px_-25px_rgba(90,20,40,.45)] sm:p-3 sm:pb-5">
+        <div className="relative aspect-[4/5] w-full overflow-hidden rounded-md bg-blush/60 sm:aspect-square lg:aspect-[4/3]">
           {photos.map((p, i) => {
             const showPlaceholder = !p.url || failed[i];
             return (
@@ -51,8 +51,9 @@ export function PhotoSlideshow({
                     src={p.url}
                     alt={p.caption || "A photo of us"}
                     loading={i === index ? "eager" : "lazy"}
+                    decoding="async"
                     onError={() => setFailed((f) => ({ ...f, [i]: true }))}
-                    className="size-full object-cover"
+                    className="size-full object-cover object-center"
                   />
                 ) : (
                   <div className="grid size-full place-items-center bg-blush/60">
@@ -66,22 +67,22 @@ export function PhotoSlideshow({
           })}
         </div>
 
-        <p className="mt-4 text-center font-body text-lg italic text-ink/70">
+        <p className="mt-3 min-h-[1.5rem] break-words px-2 text-center font-body text-base italic text-ink/70 sm:mt-4 sm:text-lg">
           {photos[index]?.caption}
         </p>
-        <p className="text-center font-body text-sm text-ink/40">
+        <p className="break-words px-2 text-center font-body text-xs text-ink/40 sm:text-sm">
           {photos[index]?.note}
         </p>
       </div>
 
-      <div className="mt-6 flex items-center justify-center gap-2">
+      <div className="mt-5 flex flex-wrap items-center justify-center gap-2 sm:mt-6">
         {photos.map((_, i) => (
           <button
             key={i}
             type="button"
             aria-label={`Show photo ${i + 1}`}
             onClick={() => setIndex(i)}
-            className={`h-2 rounded-full transition-all duration-300 ${
+            className={`h-2 shrink-0 rounded-full transition-all duration-300 ${
               i === index ? "w-6 bg-rose" : "w-2 bg-rose/30 hover:bg-rose/60"
             }`}
           />
