@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PhotoLightbox } from "@/components/photo-lightbox";
 
 export type SlidePhoto = {
   caption?: string | null;
