@@ -639,7 +639,7 @@ function Index() {
               little moments we keep
             </p>
             <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-5xl">
-              our gallery, waiting to fill
+              your amazing and beautiful pictures
             </h2>
             <p className="mt-4 font-body text-lg italic text-cream/60">
               these little frames are waiting for our pictures — I'll fill them
