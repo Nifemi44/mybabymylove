@@ -31,7 +31,7 @@ export function PhotoSlideshow({
       interval,
     );
     return () => window.clearInterval(id);
-  }, [photos.length, interval]);
+  }, [photos.length, interval, lightboxOpen]);
 
   if (photos.length === 0) return null;
 
