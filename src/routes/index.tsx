@@ -9,7 +9,7 @@ import { BackgroundMusic } from "@/components/background-music";
 import { TeddySurprise } from "@/components/teddy-surprise";
 import { NamePuzzle } from "@/components/name-puzzle";
 import { CursorTrail } from "@/components/cursor-trail";
-import { Guestbook } from "@/components/guestbook";
+
 import { ReasonGenerator } from "@/components/reason-generator";
 import { LiveCounter } from "@/components/live-counter";
 import { ScratchCard } from "@/components/scratch-card";
@@ -706,23 +706,8 @@ function Index() {
         </div>
       </section>
 
-      {/* ---------- GUESTBOOK ---------- */}
-      <section className="relative bg-blush/0 py-24 sm:py-28">
-        <div className="mx-auto max-w-3xl px-6">
-          <Reveal className="text-center">
-            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
-              leave a little something
-            </p>
-            <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-5xl">
-              our guestbook
-            </h2>
-          </Reveal>
 
-          <Reveal delay={120} className="mt-12">
-            <Guestbook />
-          </Reveal>
-        </div>
-      </section>
+
 
       {/* ---------- CLOSING LOVE NOTE ---------- */}
       <section className="relative overflow-hidden py-24 sm:py-32">

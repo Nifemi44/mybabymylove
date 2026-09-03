@@ -496,40 +496,6 @@ function AdminPage() {
           ))}
         </div>
 
-        {isAdmin && (
-          <div className="mt-10 rounded-2xl bg-cream/90 p-6 ring-1 ring-rose/20">
-            <h2 className="font-heading text-xl font-semibold text-wine">Guestbook</h2>
-            <p className="mt-1 font-body text-sm text-ink/55">
-              Messages visitors have left publicly. Remove anything you'd rather not keep up.
-            </p>
-            {guestbook.length === 0 ? (
-              <p className="mt-4 font-body text-base italic text-ink/50">No messages yet.</p>
-            ) : (
-              <div className="mt-4 space-y-3">
-                {guestbook.map((entry) => (
-                  <div
-                    key={entry.id}
-                    className="flex items-start justify-between gap-3 rounded-xl bg-white/70 px-4 py-3"
-                  >
-                    <div>
-                      <p className="font-body text-base text-ink/80">"{entry.message}"</p>
-                      <p className="mt-1 font-heading text-xs uppercase tracking-[0.15em] text-rose/70">
-                        — {entry.name}
-                      </p>
-                    </div>
-                    <button
-                      onClick={() => onDeleteGuestbookEntry(entry.id)}
-                      disabled={guestbookBusy === entry.id}
-                      className="shrink-0 rounded-full border border-wine/25 px-3 py-1.5 font-heading text-xs uppercase tracking-[0.2em] text-wine/70 disabled:opacity-60"
-                    >
-                      {guestbookBusy === entry.id ? "…" : "Delete"}
-                    </button>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
       </div>
     </main>
   );
