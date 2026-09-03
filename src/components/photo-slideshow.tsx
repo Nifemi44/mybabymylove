@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { PhotoLightbox } from "@/components/photo-lightbox";
 
 export type SlidePhoto = {
   caption?: string | null;
@@ -15,6 +16,7 @@ export function PhotoSlideshow({
 }) {
   const [index, setIndex] = useState(0);
   const [failed, setFailed] = useState<Record<number, boolean>>({});
+  const [lightboxOpen, setLightboxOpen] = useState(false);
 
   // If the photo list changes (e.g. loads in after the initial render),
   // make sure the current index is still valid instead of showing a blank frame.
@@ -23,13 +25,13 @@ export function PhotoSlideshow({
   }, [photos.length, index]);
 
   useEffect(() => {
-    if (photos.length <= 1) return;
+    if (photos.length <= 1 || lightboxOpen) return;
     const id = window.setInterval(
       () => setIndex((i) => (i + 1) % photos.length),
       interval,
     );
     return () => window.clearInterval(id);
-  }, [photos.length, interval]);
+  }, [photos.length, interval, lightboxOpen]);
 
   if (photos.length === 0) return null;
 
@@ -65,6 +67,19 @@ export function PhotoSlideshow({
               </div>
             );
           })}
+
+          {photos[index]?.url && !failed[index] && (
+            <button
+              type="button"
+              onClick={() => setLightboxOpen(true)}
+              aria-label="View photo full screen"
+              className="group absolute inset-0 cursor-zoom-in"
+            >
+              <span className="absolute bottom-2 right-2 rounded-full bg-wine/70 px-3 py-1 font-body text-[11px] text-cream opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                tap to zoom
+              </span>
+            </button>
+          )}
         </div>
 
         <p className="mt-3 min-h-[1.5rem] break-words px-2 text-center font-body text-base italic text-ink/70 sm:mt-4 sm:text-lg">
@@ -88,6 +103,15 @@ export function PhotoSlideshow({
           />
         ))}
       </div>
+
+      {lightboxOpen && (
+        <PhotoLightbox
+          photos={photos}
+          index={index}
+          onIndexChange={setIndex}
+          onClose={() => setLightboxOpen(false)}
+        />
+      )}
     </div>
   );
 }
