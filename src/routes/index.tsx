@@ -5,6 +5,8 @@ import { useQuery } from "@tanstack/react-query";
 import { useReveal } from "@/hooks/use-reveal";
 import { fetchGalleryPhotos } from "@/lib/gallery";
 import { PhotoSlideshow } from "@/components/photo-slideshow";
+import { VideoGallery } from "@/components/video-gallery";
+import { fetchGalleryVideos } from "@/lib/videos";
 import { BackgroundMusic } from "@/components/background-music";
 import { TeddySurprise } from "@/components/teddy-surprise";
 import { NamePuzzle } from "@/components/name-puzzle";
@@ -269,6 +271,10 @@ function Index() {
   const { data: photos = [] } = useQuery({
     queryKey: ["gallery-photos"],
     queryFn: fetchGalleryPhotos,
+  });
+  const { data: videos = [] } = useQuery({
+    queryKey: ["gallery-videos"],
+    queryFn: fetchGalleryVideos,
   });
 
   return (
@@ -682,6 +688,27 @@ function Index() {
           />
 
 
+        </div>
+      </section>
+
+      {/* ---------- VIDEO GALLERY ---------- */}
+      <section id="videos" className="relative scroll-mt-4 bg-night/60 py-24 sm:py-28">
+        <div className="mx-auto max-w-5xl px-6">
+          <Reveal className="text-center">
+            <p className="font-heading text-sm uppercase tracking-[0.3em] text-rose">
+              moving pictures of us
+            </p>
+            <h2 className="mt-4 font-heading text-4xl font-semibold text-cream md:text-5xl">
+              our little videos
+            </h2>
+            <p className="mt-4 font-body text-lg italic text-cream/60">
+              tap any clip to watch it full screen, my love.
+            </p>
+          </Reveal>
+
+          <VideoGallery
+            videos={videos.map((v) => ({ url: v.url, caption: v.caption, note: v.note }))}
+          />
         </div>
       </section>
 
