@@ -8,6 +8,13 @@ import {
   uploadGalleryPhoto,
   type GalleryPhoto,
 } from "@/lib/gallery";
+import {
+  deleteGalleryVideo,
+  fetchGalleryVideos,
+  updateGalleryVideo,
+  uploadGalleryVideo,
+  type GalleryVideo,
+} from "@/lib/videos";
 import { deleteSiteAudio, fetchActiveAudio, uploadSiteAudio, type SiteAudio } from "@/lib/audio";
 import { deleteVoiceNote, fetchActiveVoiceNote, uploadVoiceNote, type VoiceNote } from "@/lib/voice";
 
@@ -47,6 +54,13 @@ function AdminPage() {
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
+  const [videos, setVideos] = useState<GalleryVideo[]>([]);
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoCaption, setVideoCaption] = useState("");
+  const [videoNote, setVideoNote] = useState("");
+  const [videoBusy, setVideoBusy] = useState(false);
+  const [videoMessage, setVideoMessage] = useState<string | null>(null);
+
   const [activeAudio, setActiveAudio] = useState<SiteAudio | null>(null);
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [audioBusy, setAudioBusy] = useState(false);
@@ -69,6 +83,14 @@ function AdminPage() {
       setPhotos(await fetchGalleryPhotos());
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Could not load photos.");
+    }
+  }, []);
+
+  const loadVideos = useCallback(async () => {
+    try {
+      setVideos(await fetchGalleryVideos());
+    } catch (err) {
+      setVideoMessage(err instanceof Error ? err.message : "Could not load videos.");
     }
   }, []);
 
@@ -127,11 +149,12 @@ function AdminPage() {
   useEffect(() => {
     void checkAdmin();
     void loadPhotos();
+    void loadVideos();
     void loadAudio();
     void loadVoice();
     void loadSettings();
     void loadGuestbook();
-  }, [checkAdmin, loadPhotos, loadAudio, loadVoice, loadSettings, loadGuestbook]);
+  }, [checkAdmin, loadPhotos, loadVideos, loadAudio, loadVoice, loadSettings, loadGuestbook]);
 
   async function onClaim() {
     setBusy(true);
@@ -190,6 +213,54 @@ function AdminPage() {
       setMessage("Saved.");
     } catch (err) {
       setMessage(err instanceof Error ? err.message : "Save failed.");
+    }
+  }
+
+  async function onUploadVideo(e: React.FormEvent) {
+    e.preventDefault();
+    if (!videoFile) return;
+    setVideoBusy(true);
+    setVideoMessage(null);
+    try {
+      await uploadGalleryVideo({
+        file: videoFile,
+        caption: videoCaption,
+        note: videoNote,
+        position: videos.length,
+      });
+      setVideoFile(null);
+      setVideoCaption("");
+      setVideoNote("");
+      const input = document.getElementById("video-input") as HTMLInputElement | null;
+      if (input) input.value = "";
+      await loadVideos();
+      setVideoMessage("Video added ♥");
+    } catch (err) {
+      setVideoMessage(err instanceof Error ? err.message : "Upload failed.");
+    } finally {
+      setVideoBusy(false);
+    }
+  }
+
+  async function onDeleteVideo(video: GalleryVideo) {
+    setVideoBusy(true);
+    try {
+      await deleteGalleryVideo(video);
+      await loadVideos();
+    } catch (err) {
+      setVideoMessage(err instanceof Error ? err.message : "Delete failed.");
+    } finally {
+      setVideoBusy(false);
+    }
+  }
+
+  async function onSaveVideoText(video: GalleryVideo, fields: { caption: string; note: string }) {
+    try {
+      await updateGalleryVideo(video.id, fields);
+      await loadVideos();
+      setVideoMessage("Saved.");
+    } catch (err) {
+      setVideoMessage(err instanceof Error ? err.message : "Save failed.");
     }
   }
 
@@ -496,6 +567,65 @@ function AdminPage() {
           ))}
         </div>
 
+        <div className="mt-14">
+          <h2 className="font-heading text-2xl font-semibold text-wine">Our videos</h2>
+
+          {isAdmin && (
+            <form
+              onSubmit={onUploadVideo}
+              className="mt-5 rounded-2xl bg-cream/90 p-6 ring-1 ring-rose/20"
+            >
+              <h3 className="font-heading text-xl font-semibold text-wine">Add a video</h3>
+              <input
+                id="video-input"
+                type="file"
+                accept="video/*"
+                required
+                onChange={(e) => setVideoFile(e.target.files?.[0] ?? null)}
+                className="mt-4 block w-full font-body text-base"
+              />
+              <input
+                value={videoCaption}
+                onChange={(e) => setVideoCaption(e.target.value)}
+                placeholder="Caption (e.g. Dancing in the kitchen)"
+                className="mt-4 w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+              />
+              <input
+                value={videoNote}
+                onChange={(e) => setVideoNote(e.target.value)}
+                placeholder="Little note (e.g. you were laughing the whole time)"
+                className="mt-3 w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+              />
+              <button
+                type="submit"
+                disabled={videoBusy || !videoFile}
+                className="mt-5 rounded-full bg-wine px-6 py-3 font-heading text-sm uppercase tracking-[0.2em] text-cream disabled:opacity-60"
+              >
+                {videoBusy ? "Uploading…" : "Upload video"}
+              </button>
+            </form>
+          )}
+
+          {videoMessage && <p className="mt-5 font-body text-base text-wine">{videoMessage}</p>}
+
+          <div className="mt-8 space-y-5">
+            {videos.length === 0 && (
+              <p className="font-body text-lg italic text-ink/55">
+                No videos yet — the video section stays empty until you add one.
+              </p>
+            )}
+            {videos.map((v) => (
+              <VideoRow
+                key={v.id}
+                video={v}
+                editable={isAdmin}
+                onDelete={() => onDeleteVideo(v)}
+                onSave={(fields) => onSaveVideoText(v, fields)}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
     </main>
   );
@@ -522,6 +652,62 @@ function PhotoRow({
         alt={photo.caption || "Gallery photo"}
         loading="lazy"
         className="size-24 shrink-0 rounded-lg object-cover"
+      />
+      <div className="flex-1 space-y-2">
+        <input
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+          disabled={!editable}
+          className="w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+        />
+        <input
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
+          disabled={!editable}
+          className="w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+        />
+      </div>
+      {editable && (
+        <div className="flex gap-2">
+          <button
+            onClick={() => onSave({ caption, note })}
+            className="rounded-full border border-wine/25 px-4 py-2 font-heading text-xs uppercase tracking-[0.2em] text-wine"
+          >
+            Save
+          </button>
+          <button
+            onClick={onDelete}
+            className="rounded-full border border-wine/25 px-4 py-2 font-heading text-xs uppercase tracking-[0.2em] text-wine/70"
+          >
+            Delete
+          </button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function VideoRow({
+  video,
+  editable,
+  onDelete,
+  onSave,
+}: {
+  video: GalleryVideo;
+  editable: boolean;
+  onDelete: () => void;
+  onSave: (fields: { caption: string; note: string }) => void;
+}) {
+  const [caption, setCaption] = useState(video.caption);
+  const [note, setNote] = useState(video.note);
+
+  return (
+    <div className="flex flex-col gap-4 rounded-2xl bg-cream/90 p-4 ring-1 ring-rose/20 sm:flex-row sm:items-center">
+      <video
+        src={video.url}
+        muted
+        preload="metadata"
+        className="h-24 w-40 shrink-0 rounded-lg bg-black object-cover"
       />
       <div className="flex-1 space-y-2">
         <input
