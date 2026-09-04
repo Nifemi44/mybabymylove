@@ -41,6 +41,33 @@ export type Database = {
         }
         Relationships: []
       }
+      gallery_videos: {
+        Row: {
+          caption: string
+          created_at: string
+          id: string
+          note: string
+          position: number
+          video_path: string
+        }
+        Insert: {
+          caption?: string
+          created_at?: string
+          id?: string
+          note?: string
+          position?: number
+          video_path: string
+        }
+        Update: {
+          caption?: string
+          created_at?: string
+          id?: string
+          note?: string
+          position?: number
+          video_path?: string
+        }
+        Relationships: []
+      }
       guestbook_entries: {
         Row: {
           created_at: string
