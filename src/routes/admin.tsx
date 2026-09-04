@@ -496,6 +496,65 @@ function AdminPage() {
           ))}
         </div>
 
+        <div className="mt-14">
+          <h2 className="font-heading text-2xl font-semibold text-wine">Our videos</h2>
+
+          {isAdmin && (
+            <form
+              onSubmit={onUploadVideo}
+              className="mt-5 rounded-2xl bg-cream/90 p-6 ring-1 ring-rose/20"
+            >
+              <h3 className="font-heading text-xl font-semibold text-wine">Add a video</h3>
+              <input
+                id="video-input"
+                type="file"
+                accept="video/*"
+                required
+                onChange={(e) => setVideoFile(e.target.files?.[0] ?? null)}
+                className="mt-4 block w-full font-body text-base"
+              />
+              <input
+                value={videoCaption}
+                onChange={(e) => setVideoCaption(e.target.value)}
+                placeholder="Caption (e.g. Dancing in the kitchen)"
+                className="mt-4 w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+              />
+              <input
+                value={videoNote}
+                onChange={(e) => setVideoNote(e.target.value)}
+                placeholder="Little note (e.g. you were laughing the whole time)"
+                className="mt-3 w-full rounded-lg border border-rose/30 bg-white/70 px-3 py-2"
+              />
+              <button
+                type="submit"
+                disabled={videoBusy || !videoFile}
+                className="mt-5 rounded-full bg-wine px-6 py-3 font-heading text-sm uppercase tracking-[0.2em] text-cream disabled:opacity-60"
+              >
+                {videoBusy ? "Uploading…" : "Upload video"}
+              </button>
+            </form>
+          )}
+
+          {videoMessage && <p className="mt-5 font-body text-base text-wine">{videoMessage}</p>}
+
+          <div className="mt-8 space-y-5">
+            {videos.length === 0 && (
+              <p className="font-body text-lg italic text-ink/55">
+                No videos yet — the video section stays empty until you add one.
+              </p>
+            )}
+            {videos.map((v) => (
+              <VideoRow
+                key={v.id}
+                video={v}
+                editable={isAdmin}
+                onDelete={() => onDeleteVideo(v)}
+                onSave={(fields) => onSaveVideoText(v, fields)}
+              />
+            ))}
+          </div>
+        </div>
+
       </div>
     </main>
   );
